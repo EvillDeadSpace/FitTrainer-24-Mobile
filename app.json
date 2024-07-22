@@ -1,12 +1,48 @@
 {
   "expo": {
-    "name": "blank",
-    "slug": "blank",
-    "version": "1.0.0",
+    "scheme": "fittrainer",
+    "name": "fittrainer",
+    "slug": "fittrainer",
+    "icon": "./constants/photo/adaptive-icon.png",
+    "version": "1.0.0 ",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./constants/photo/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-media-library",
+        {
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4c145946-3b59-4904-b4b0-66812f8cc23a"
+      }
+    },
+    "android": {
+      "package": "com.evilldeadspace.fittrainer"
+    }
   }
 }
