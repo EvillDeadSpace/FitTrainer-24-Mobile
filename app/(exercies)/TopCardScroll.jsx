@@ -92,25 +92,6 @@ const TopCardScroll = () => {
 
   return (
    <>
-        <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginLeft: '5%', }}>
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 20, marginBottom: 10 }}>Hello,</Text>
-        <Text style={{ fontSize: 20 }}>{username}</Text>
-      </View>
-      <Link href="/profile" style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Avatar
-          circular
-          size="$5"
-        >
-          <Avatar.Image
-            style={{ width: 50, height: 50, borderRadius: 25, marginLeft:"auto",}} // Adjust size as needed
-            accessibilityLabel="Cam"
-            src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
-          />
-          <Avatar.Fallback backgroundColor="$blue10" />
-        </Avatar>
-      </Link>
-    </View>
     <View style={styles.containerScroll}>
         <AntDesign name="search1" size={24} color="black" style={styles.searchIcon} />
         <TextInput

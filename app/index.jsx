@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
 import images from "../constants/photo"
 
-
+import 'react-native-gesture-handler';
 import { AlertDialog, XStack, YStack } from 'tamagui'
 
 import { TamaguiProvider } from 'tamagui'
