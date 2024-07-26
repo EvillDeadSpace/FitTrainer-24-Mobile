@@ -39,6 +39,7 @@ const coachSchema = new Schema(
         day: Number,
         premium: Boolean,
         image: String,
+        ordersToTake: [String],
         orders: [String],
         favorites: [String],
     }
@@ -277,14 +278,46 @@ app.post('/.netlify/functions/server/api/update', async (req, res) => {
 
 
 app.post('/.netlify/functions/server/api/buycoach', async (req, res) => {
-    console.log('Pristigao zahtev za kupovinu trenera:', req.body);
+    const { username, coachName } = req.body;
 
-    const { userName, choachName } = req.body;
+    if (!coachName) {
+        return res.status(400).json({ error: 'Narudžbina nije dostavljena ili je prazna.' });
+    }
 
-    console.log(choachName);
+    try {
+        // Pronađi korisnika u bazi podataka prema korisničkom imenu
+        const user = await User.findOne({ username: username });
 
+        const userEmail = user.email;
+
+        if (!user) {
+            return res.status(404).json({ error: 'Korisnik nije pronađen.' });
+        }
+
+
+        const coach = await Coach.findOne({ username: coachName });
+        if (!coach) {
+            return res.status(404).json({ error: 'Trener nije pronađen.' });
+        }
+
+        coach.ordersToTake.push(username + " Email for talk:" + userEmail);
+
+        await coach.save();
+
+        // Dodaj novu narudžbinu u orders polje
+        user.orders.push(coachName);
+
+        // Spremi promjene u bazu podataka
+        await user.save();
+
+        res.status(200).json({ message: 'Narudžbina uspješno dodana.' });
+    } catch (error) {
+        console.error('Greška prilikom dodavanja narudžbine:', error);
+        res.status(500).json({ error: 'Greška prilikom dodavanja narudžbine.' });
+    }
 
 });
+
 
 
 
