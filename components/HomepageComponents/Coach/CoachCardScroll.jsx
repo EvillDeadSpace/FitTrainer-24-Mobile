@@ -57,7 +57,7 @@ const CoachCardScroll = () => {
           <Arrow name="chevron-right" size={20} color="black" />
         </Link>
       </View>
-      <ScrollView horizontal={true} style={styles.container}>
+      <ScrollView horizontal={true} key={coaches} style={styles.container}>
         {coaches.slice(0, 3).map((coach) => (
           <TouchableOpacity
             key={coach.id}
