@@ -10,21 +10,26 @@ import {
 import React, { useState, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+//components
 import TopCardScroll from "../(exercies)/TopCardScroll";
 import ProgramCardScroll from "../../components/HomepageComponents/ProgramCardScroll";
 import CoachCardScroll from "../../components/HomepageComponents/Coach/CoachCardScroll";
 
-import { useRoute } from "@react-navigation/native";
-
+//context
 import { useContext } from "react";
 import { UserContext } from "../../components/Context/Context";
 
+//navigation
 import { useNavigation, Link } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+//tamagui
 import { Avatar, Button } from "tamagui";
 
-import LottieView from "lottie-react-native";
+//icons
+import Icon from "react-native-vector-icons/AntDesign";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Feather from 'react-native-vector-icons/Feather';
 
 const home = () => {
   const drawer = useRef(null);
@@ -58,9 +63,18 @@ const home = () => {
       </View>
       <View style={styles.menuItem}>
         <View style={styles.menuItemContent}>
-         <Link href="profile" ><Text style={styles.text}>View profile</Text></Link> 
+          <Link href="profile">
+            <Icon name="user" size={20} style={styles.icon} />
+            <Text style={styles.text}>View profile</Text>
+          </Link>
+          <Link href="Settings">
+          <MaterialCommunityIcons name="progress-check" size={24} color="black" style={styles.icon} />
           <Text style={styles.text}>Progress</Text>
+          </Link>
+          <Link href="Orders">
+          <Feather size={20} style={styles.icon} name="check-square" />
           <Text style={styles.text}>Orders</Text>
+          </Link>
         </View>
       </View>
     </View>
@@ -129,7 +143,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-   
   },
   navigationContainer: {
     backgroundColor: "#744B8F",
@@ -170,7 +183,7 @@ const styles = StyleSheet.create({
   avatarContainer: {
     flexDirection: "column",
     alignItems: "center",
- 
+
     backgroundColor: "#744B8F",
     marginBottom: 20,
   },
@@ -186,23 +199,16 @@ const styles = StyleSheet.create({
     fontSize: 26,
   },
   menuItem: {
-    
-  
-    width:'100%',
+    width: "100%",
     marginVertical: 20,
-  
-   
-   
   },
   icon: {
-    marginRight: 15, // Adjust as needed
+    margin: 15, // Adjust as needed
     color: "#FFC700",
   },
   menuItemContent: {
     alignItems: "center",
     flexDirection: "column",
-    
-   
   },
 });
 

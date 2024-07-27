@@ -319,6 +319,22 @@ app.post('/.netlify/functions/server/api/buycoach', async (req, res) => {
 });
 
 
+app.get('/.netlify/functions/server/api/orders/:username', async (req, res) => {
+    try {
+        const { username } = req.params; // Dobavljanje korisničkog imena iz URL-a
+        const userOrders = await User.find({ username: username });
+
+        if (!userOrders) {
+            return res.status(404).json({ error: 'Korisnik nije pronađen.' });
+        }
+
+        res.json(userOrders);
+    } catch (err) {
+        console.error('Greška prilikom dohvaćanja narudžbina iz baze:', err);
+        res.status(500).json({ error: 'Greška prilikom dohvaćanja narudžbina iz baze' });
+    }
+});
+
 
 
 const handler = ServerlessHttp(app);

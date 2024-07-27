@@ -12,6 +12,7 @@ const ProfileLayout = () => {
     <Stack.Screen name='CoachSettings' options={{headerShown:false}}/>
     <Stack.Screen name='Privacy' options={{headerShown:false}} />
     <Stack.Screen name='Settings' options={{headerShown:false}} />
+    <Stack.Screen name='Orders' options={{headerShown:false}} />
    </Stack>
   
   )

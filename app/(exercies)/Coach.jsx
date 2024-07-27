@@ -21,6 +21,9 @@ import LottieView from 'lottie-react-native';
 
 import { Button } from "tamagui";
 
+import { useContext } from "react";
+import { UserContext } from "../../components/Context/Context";
+
 const Coach = () => {
   const [finalUserData, setFinalUserData] = useState({});
   const [image, setImage] = useState(null);
@@ -31,6 +34,10 @@ const Coach = () => {
   const exercise = useLocalSearchParams();
   const exerciseName = exercise;
   const trainerName = exerciseName.trainerName;
+
+
+  //fetch user data
+  const { username } = useContext(UserContext);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,7 +60,35 @@ const Coach = () => {
     fetchUserData();
   }, [trainerName]);
 
-  console.log(finalUserData[0] + "test kurac kurac kurac");
+  const handlerOrder = async () => {
+    const url =
+      "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/buycoach";
+    const payload = {
+      username: username,
+      coachName: trainerName,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        console.log("Error");
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
 
   return (
     <>
@@ -147,7 +182,7 @@ const Coach = () => {
           </View>
         </View>
        
-        <Button style={styles.button} onPress={() => handleBuy()}>
+        <Button style={styles.button} onPress={() => handlerOrder()}>
           <Text>Buy a Coach </Text>
         </Button>
       </View>
