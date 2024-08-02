@@ -9,55 +9,54 @@ import { UserContext } from "../../components/Context/Context";
 
 const Orders = () => {
 
-  const [orders, setOrders] = useState([]);
-
   const { username } = useContext(UserContext);
+
+  const [trainers, setTrainers] = useState([]);
+  const [status, setStatus] = useState([]);
 
   const fetchOrders = async (username) => {
     const url = `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/orders/${username}`;
 
     try {
         const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
-    
+
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok');
         }
-    
+
         const data = await response.json();
         console.log('Fetched data:', data); // Log the entire data object
-    
-        // Extract orders from each object in the array
-        const orders = data.map(user => user.orders).flat();
-        console.log('Extracted orders:', orders);
-        return orders;
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-  };
 
-  useEffect(() => {
-    const getOrders = async () => {// ili bilo koje korisničko ime koje trebaš
-      const fetchedOrders = await fetchOrders(username);
-      setOrders(fetchedOrders);
-    };
-    getOrders();
-  }, []);
+        // Extract trainers and status from the data object
+        const trainers = data.trainers;
+        const status = data.status;
+        setTrainers(trainers);
+        setStatus(status);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+    }
+};
+
+useEffect(() => {
+    fetchOrders(username);
+}, []);
+
 
   return (
     <SafeAreaView>
-      <Text>Orders</Text>
-      {orders && orders.length > 0 ? (
-        orders.map((order, index) => (
-          <Text key={index}>{order}</Text>
-        ))
-      ) : (
-        <Text>No orders found</Text>
-      )}
+          <Text>Orders</Text>
+            {trainers && trainers.length > 0 ? (
+                trainers.map((trainer, index) => (
+                    <Text key={index}>{`Trainer: ${trainer}, Status: ${status[index]}`}</Text>
+                ))
+            ) : (
+                <Text>No orders found</Text>
+            )}
     </SafeAreaView>
   );
 };

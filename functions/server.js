@@ -9,6 +9,11 @@ const ServerlessHttp = require('serverless-http');
 const jwt = require('jsonwebtoken');
 
 // Definisanje šeme za korisnika
+const orderSchema = new Schema({
+    trainer: { type: String, required: false },
+    confirmed: { type: Boolean, default: false }
+});
+
 const userSchema = new Schema({
     username: String,
     email: String,
@@ -21,29 +26,33 @@ const userSchema = new Schema({
     duration: Number,
     premium: Boolean,
     day: Number,
-    orders: [String],
+    orders: {
+        type: [orderSchema],
+        default: [] // Inicijalizujemo kao prazan niz
+    },
     favorites: [String] // Referenca na šemu za omiljene stavke
 });
 
 
-const coachSchema = new Schema(
-    {
-        username: String,
-        email: String,
-        password: String,
-        role: String,
-        price: Number,
-        specialization: String,
-        description: String,
-        duration: Number,
-        day: Number,
-        premium: Boolean,
-        image: String,
-        ordersToTake: [String],
-        orders: [String],
-        favorites: [String],
-    }
-);
+const coachSchema = new Schema({
+    username: String,
+    email: String,
+    password: String,
+    role: String,
+    price: Number,
+    specialization: String,
+    description: String,
+    duration: Number,
+    day: Number,
+    premium: Boolean,
+    image: String,
+    ordersToTake: {
+        type: [String], // Inicijalizujemo kao niz stringova
+        default: [] // Inicijalizujemo kao prazan niz
+    },
+    favorites: [String]
+});
+
 
 // Kreiranje modela korisnika
 const User = mongoose.model('User', userSchema);
@@ -288,41 +297,71 @@ app.post('/.netlify/functions/server/api/buycoach', async (req, res) => {
         // Pronađi korisnika u bazi podataka prema korisničkom imenu
         const user = await User.findOne({ username: username });
 
-        const userEmail = user.email;
-
         if (!user) {
             return res.status(404).json({ error: 'Korisnik nije pronađen.' });
         }
 
+        const userEmail = user.email;
 
         const coach = await Coach.findOne({ username: coachName });
         if (!coach) {
             return res.status(404).json({ error: 'Trener nije pronađen.' });
         }
 
-        coach.ordersToTake.push(username + " Email for talk:" + userEmail);
-
+        coach.ordersToTake.push(username);
         await coach.save();
 
-        // Dodaj novu narudžbinu u orders polje
-        user.orders.push(coachName);
+        // Proveri da li je polje orders definisano
+        if (!user.orders) {
+            user.orders = [];
+        }
+
+        // Proveri da li je coachName validan pre dodavanja narudžbine
+        if (!coachName) {
+            return res.status(400).json({ error: 'Ime trenera je prazno.' });
+        }
+
+        // Dodaj novu narudžbinu kao objekt u orders polje
+        user.orders.push({ trainer: coachName, confirmed: false });
 
         // Spremi promjene u bazu podataka
         await user.save();
 
         res.status(200).json({ message: 'Narudžbina uspješno dodana.' });
     } catch (error) {
-        console.error('Greška prilikom dodavanja narudžbine:', error);
-        res.status(500).json({ error: 'Greška prilikom dodavanja narudžbine.' });
+        console.error('Greška prilikom dodavanja narudžbine:', error.message);
+        res.status(500).json({ error: `Greška prilikom dodavanja narudžbine: ${error.message}` });
     }
-
 });
 
 
-app.get('/.netlify/functions/server/api/orders/:username', async (req, res) => {
+
+//update orders
+app.post('/.netlify/functions/server/api/updateOrderStatus', async (req, res) => {
+    const { username, trainer } = req.body;
+
+    try {
+        // Find the user and update the specific order status
+        const user = await User.findOneAndUpdate(
+            { username, 'orders.trainer': trainer, 'orders.confirmed': false }, // Match the user and the specific order
+            { $set: { 'orders.$.confirmed': true } }, // Update the order's confirmed status to true
+            { new: true } // Return the updated document
+        );
+
+        if (user) {
+            res.status(200).json({ message: 'Order status updated successfully', user });
+        } else {
+            res.status(404).json({ message: 'Order not found or already confirmed' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'An error occurred', error });
+    }
+});
+
+app.get('/.netlify/functions/server/api/coach/:username', async (req, res) => {
     try {
         const { username } = req.params; // Dobavljanje korisničkog imena iz URL-a
-        const userOrders = await User.find({ username: username });
+        const userOrders = await Coach.find({ username: username });
 
         if (!userOrders) {
             return res.status(404).json({ error: 'Korisnik nije pronađen.' });
@@ -334,6 +373,30 @@ app.get('/.netlify/functions/server/api/orders/:username', async (req, res) => {
         res.status(500).json({ error: 'Greška prilikom dohvaćanja narudžbina iz baze' });
     }
 });
+
+//fetch orders for user
+app.get('/.netlify/functions/server/api/orders/:username', async (req, res) => {
+    const { username } = req.params;
+
+    try {
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const trainers = user.orders.map(order => order.trainer);
+        const status = user.orders.map(order => order.confirmed);
+        res.status(200).json({
+            trainers,
+            status
+        });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ message: 'An error occurred', error });
+    }
+});
+
 
 
 

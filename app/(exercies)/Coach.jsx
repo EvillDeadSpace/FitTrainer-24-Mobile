@@ -30,12 +30,11 @@ const Coach = () => {
   const [coach, setCoach] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  //take username
+  //take coach name 
   const exercise = useLocalSearchParams();
-  const exerciseName = exercise;
-  const trainerName = exerciseName.trainerName;
-
-
+  const coachName = exercise.trainerName;
+  console.log(coachName );
+  
   //fetch user data
   const { username } = useContext(UserContext);
 
@@ -43,7 +42,7 @@ const Coach = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/username/${trainerName}`
+          `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/username/${coachName}`
         );
         const user = await response.json();
 
@@ -58,37 +57,42 @@ const Coach = () => {
       }
     };
     fetchUserData();
-  }, [trainerName]);
+  }, []);
 
   const handlerOrder = async () => {
-    const url =
-      "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/buycoach";
+    const url = "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/buycoach";
     const payload = {
-      username: username,
-      coachName: trainerName,
+        username: username,
+        coachName: coachName,
     };
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        console.log("Error");
+    if (!username || !coachName) {
+        console.error("Username or trainerName is missing.");
         return;
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.error("Error fetching orders:", error);
     }
-  };
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.log("Error:", errorData.error);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Success:", data.message);
+        return data;
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+    }
+};
 
   return (
     <>

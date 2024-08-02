@@ -7,7 +7,7 @@ import {
   DrawerLayoutAndroid,
   StyleSheet,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 //components
@@ -33,6 +33,14 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const home = () => {
   const drawer = useRef(null);
+
+  const { username } = useContext(UserContext);
+
+  const [IsCoach, setIsCoach] = useState(false);
+
+
+  
+
   const [drawerPosition, setDrawerPosition] = useState("left");
   const changeDrawerPosition = () => {
     if (drawerPosition === "left") {
@@ -41,6 +49,40 @@ const home = () => {
       setDrawerPosition("left");
     }
   };
+
+
+
+
+
+  useEffect(() => {
+    // Pozivamo funkciju za proveru da li je korisnik trener
+    checkIfCoach();
+  }, []);
+
+  const checkIfCoach = async () => {
+    try {
+      // Pozivamo API endpoint za dobijanje podataka o trenerima
+      const response = await fetch(
+        "https://fittrainer-24host.netlify.app/.netlify/functions/server/coaches"
+      );
+      const data = await response.json();
+
+      // Proveravamo da li trenutni korisnik postoji u listi trenera
+      const coach = data.find((coach) => coach.username === username);
+
+      // Postavljamo isCoach na true ako je trenutni korisnik trener (premium korisnik)
+      setIsCoach(!!coach);
+    } catch (error) {
+      console.error("Error fetching coaches:", error);
+    }
+  };
+
+
+
+
+
+
+
 
   const navigationView = () => (
     <View style={[styles.container, styles.navigationContainer]}>
@@ -68,13 +110,30 @@ const home = () => {
             <Text style={styles.text}>View profile</Text>
           </Link>
           <Link href="Settings">
-          <MaterialCommunityIcons name="progress-check" size={24} color="black" style={styles.icon} />
-          <Text style={styles.text}>Progress</Text>
+            <MaterialCommunityIcons name="progress-check" size={24} color="black" style={styles.icon} />
+            <Text style={styles.text}>Progress</Text>
           </Link>
-          <Link href="Orders">
-          <Feather size={20} style={styles.icon} name="check-square" />
-          <Text style={styles.text}>Orders</Text>
-          </Link>
+         
+           
+            {
+              IsCoach ? (
+                <>
+                <Link href="CoachOrder">
+                <Feather size={20} style={styles.icon} name="check-square" />
+                  <Text style={styles.text}>Your Customers</Text>
+                  </Link>
+                </>
+              ) : (
+                <>
+                <Link href="Orders">
+                <Feather size={20} style={styles.icon} name="check-square" />
+                  <Text style={styles.text}>Purchased Coaches</Text>
+                  </Link>
+                </>
+                
+              )
+            }
+          
         </View>
       </View>
     </View>
@@ -86,7 +145,6 @@ const home = () => {
   // [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
   //);
 
-  const { username } = useContext(UserContext);
 
   return (
     <DrawerLayoutAndroid
