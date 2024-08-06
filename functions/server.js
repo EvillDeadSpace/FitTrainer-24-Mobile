@@ -14,6 +14,12 @@ const orderSchema = new Schema({
     confirmed: { type: Boolean, default: false }
 });
 
+//trner schema
+const orderTrainerSchema = new Schema({
+    user: { type: String, required: false },
+    confirmed: { type: Boolean, default: false }
+});
+
 const userSchema = new Schema({
     username: String,
     email: String,
@@ -47,7 +53,7 @@ const coachSchema = new Schema({
     premium: Boolean,
     image: String,
     ordersToTake: {
-        type: [String], // Inicijalizujemo kao niz stringova
+        type: [orderTrainerSchema], // Inicijalizujemo kao niz stringova
         default: [] // Inicijalizujemo kao prazan niz
     },
     favorites: [String]
@@ -308,7 +314,7 @@ app.post('/.netlify/functions/server/api/buycoach', async (req, res) => {
             return res.status(404).json({ error: 'Trener nije pronađen.' });
         }
 
-        coach.ordersToTake.push(username);
+        coach.ordersToTake.push({ user: userEmail, confirmed: false });
         await coach.save();
 
         // Proveri da li je polje orders definisano
@@ -347,6 +353,19 @@ app.post('/.netlify/functions/server/api/updateOrderStatus', async (req, res) =>
             { $set: { 'orders.$.confirmed': true } }, // Update the order's confirmed status to true
             { new: true } // Return the updated document
         );
+
+         // Find the coach and update the specific order status
+         const coach = await Coach.findOneAndUpdate(
+            { 'username': trainer, 'ordersToTake.user': username, 'ordersToTake.confirmed': false }, // Match the user and the specific order
+            { 
+                $set: {'ordersToTake.$.confirmed': true// Update the order's confirmed status to true
+} 
+            }, 
+            { new: true } // Return the updated document
+        );
+        if (coach) {
+            res.status(200).json({ message: 'Order status updated successfully do trenera je ', user, coach });
+        }
 
         if (user) {
             res.status(200).json({ message: 'Order status updated successfully', user });

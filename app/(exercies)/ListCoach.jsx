@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Image,
   FlatList,
@@ -16,6 +15,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { FadeIn, BounceIn, BounceInRight } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+
+
+import { ScrollView } from "react-native-virtualized-view";
+
+import BigList from "react-native-big-list";
+
 
 const ListCoach = () => {
   useEffect(() => {
@@ -41,6 +46,44 @@ const ListCoach = () => {
   const [premiumCoaches, setPremiumCoaches] = useState([]);
   const [regularCoaches, setRegularCoaches] = useState([]);
 
+  const PremiumCoachesList = ({ data }) => {
+    const renderItem = ({ item }) => (
+      <View style={[styles.row, styles.premiumRow]}>
+        <TouchableOpacity onPress={() => onPressTrainer(item.username)}>
+          <View style={styles.premiumCard}>
+            <Image source={{ uri: item.image }} style={styles.image} />
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{item.username}</Text>
+              <Text style={styles.specialization}>{item.specialization}</Text>
+              <Text style={styles.price}>{item.price} $</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+    return <FlatList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} numColumns={2} />;
+  };
+  
+ 
+const RegularCoachesList = ({ data }) => {
+  const renderItem = ({ item }) => (
+    <View style={[styles.row, styles.regularRow]}>
+      <TouchableOpacity onPress={() => onPressTrainer(item.username)}>
+        <View style={styles.card}>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{item.username}</Text>
+            <Text style={styles.specialization}>{item.specialization}</Text>
+            <Text style={styles.price}>{item.price} $</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+  return <FlatList data={data} renderItem={renderItem} keyExtractor={(item) => item.id} numColumns={2} />;
+};
+
+  
   const onPressTrainer = (trainerName) => {
     router.push({ pathname: "/Coach", params: { trainerName } });
     console.log(trainerName);
@@ -64,39 +107,9 @@ const ListCoach = () => {
           }}
         >
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            {premiumCoaches.map((item, index) => (
-              <View key={index} style={[styles.row, styles.premiumRow]}>
-                <TouchableOpacity onPress={() => onPressTrainer(item.username)}>
-                  <View style={styles.premiumCard}>
-                    <Image source={{ uri: item.image }} style={styles.image} />
-                    <View style={styles.textContainer}>
-                      <Text style={styles.title}>{item.username}</Text>
-                      <Text style={styles.specialization}>
-                        {item.specialization}
-                      </Text>
-                      <Text style={styles.price}>{item.price} $</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            ))}
-            {regularCoaches.map((item, index) => (
-              <View key={index} style={styles.row}>
-                <TouchableOpacity onPress={() => onPressTrainer(item.username)}>
-                  <View style={styles.card}>
-                    <Image source={{ uri: item.image }} style={styles.image} />
-                    <View style={styles.textContainer}>
-                      <Text style={styles.title}>{item.username}</Text>
-                      <Text style={styles.specialization}>
-                        {item.specialization}
-                      </Text>
-                      <Text style={styles.price}>{item.price} $</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
+          <PremiumCoachesList data={premiumCoaches} />
+          <RegularCoachesList data={regularCoaches} />
+        </ScrollView>
         </Animated.View>
       </View>
     </SafeAreaView>
@@ -107,7 +120,9 @@ const styles = StyleSheet.create({
   paddingContainer: {
     padding: 20,
   },
-  container: {},
+  container: {
+    flex:1,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -165,9 +180,9 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     justifyContent: "center",
-    alignItems: "center", // Changed alignment to start from left
-    flexDirection: "row",
-    flexWrap: "wrap", // Changed flexDirection to column
+    alignItems: "center",
+    flexDirection: "column",
+    // Changed flexDirection to column
   },
   row: {
     flexDirection: "row",
