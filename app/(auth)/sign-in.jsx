@@ -19,6 +19,12 @@ import { BounceIn} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
 
+
+//.env
+import { LOGIN_URL } from '@env';
+
+
+
 const SignIn = () => {
 
     const [email, setEmail] = useState('')
@@ -26,12 +32,11 @@ const SignIn = () => {
 
     const { setUsername } = useContext(UserContext);
 
-
+   
     const handleLogin = async () => {
-
-        const url = "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/login";
+     
         try {
-            const response = await fetch(url, {
+            const response = await fetch(LOGIN_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

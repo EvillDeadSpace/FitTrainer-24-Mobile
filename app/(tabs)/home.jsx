@@ -29,7 +29,11 @@ import { Avatar, Button } from "tamagui";
 //icons
 import Icon from "react-native-vector-icons/AntDesign";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Feather from 'react-native-vector-icons/Feather';
+import Feather from "react-native-vector-icons/Feather";
+
+
+//env
+import { FIND_COACH_USERNAME } from "@env";
 
 const home = () => {
   const drawer = useRef(null);
@@ -37,9 +41,6 @@ const home = () => {
   const { username } = useContext(UserContext);
 
   const [IsCoach, setIsCoach] = useState(false);
-
-
-  
 
   const [drawerPosition, setDrawerPosition] = useState("left");
   const changeDrawerPosition = () => {
@@ -50,10 +51,6 @@ const home = () => {
     }
   };
 
-
-
-
-
   useEffect(() => {
     // Pozivamo funkciju za proveru da li je korisnik trener
     checkIfCoach();
@@ -63,7 +60,7 @@ const home = () => {
     try {
       // Pozivamo API endpoint za dobijanje podataka o trenerima
       const response = await fetch(
-        "https://fittrainer-24host.netlify.app/.netlify/functions/server/coaches"
+        FIND_COACH_USERNAME
       );
       const data = await response.json();
 
@@ -76,13 +73,6 @@ const home = () => {
       console.error("Error fetching coaches:", error);
     }
   };
-
-
-
-
-
-
-
 
   const navigationView = () => (
     <View style={[styles.container, styles.navigationContainer]}>
@@ -110,30 +100,30 @@ const home = () => {
             <Text style={styles.text}>View profile</Text>
           </Link>
           <Link href="Settings">
-            <MaterialCommunityIcons name="progress-check" size={24} color="black" style={styles.icon} />
+            <MaterialCommunityIcons
+              name="progress-check"
+              size={24}
+              color="black"
+              style={styles.icon}
+            />
             <Text style={styles.text}>Progress</Text>
           </Link>
-         
-           
-            {
-              IsCoach ? (
-                <>
-                <Link href="CoachOrder">
+
+          {IsCoach ? (
+            <>
+              <Link href="CoachOrder">
                 <Feather size={20} style={styles.icon} name="check-square" />
-                  <Text style={styles.text}>Your Customers</Text>
-                  </Link>
-                </>
-              ) : (
-                <>
-                <Link href="Orders">
+                <Text style={styles.text}>Your Customers</Text>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="Orders">
                 <Feather size={20} style={styles.icon} name="check-square" />
-                  <Text style={styles.text}>Purchased Coaches</Text>
-                  </Link>
-                </>
-                
-              )
-            }
-          
+                <Text style={styles.text}>Purchased Coaches</Text>
+              </Link>
+            </>
+          )}
         </View>
       </View>
     </View>
@@ -144,7 +134,6 @@ const home = () => {
   //  'Vako ovo je rana verzija aplikacija i znam bas sam spor, ako imate bilo kakve ideje sta mogu unaprijediti slobodno mi javite  `💕💕. Ne bih vise da vas smaram iztrazite moje "remek djelo"... Poyyy od tubeeee ❤️😘  ',
   // [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
   //);
-
 
   return (
     <DrawerLayoutAndroid

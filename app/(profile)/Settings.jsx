@@ -9,6 +9,8 @@ import { UserContext } from "../../components/Context/Context";
 
 import { Button, Input, TextArea } from "tamagui";
 
+//import env
+import {USER_UPDATE_SETTINGS} from "@env";
 
 const Settings = () => {
 
@@ -16,9 +18,9 @@ const Settings = () => {
 
   const updateSettings = async () => {
 
-    const url = "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/update";
+   
     try {
-      const response = await fetch(url, {
+      const response = await fetch(USER_UPDATE_SETTINGS, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

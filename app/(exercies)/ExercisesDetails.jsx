@@ -15,9 +15,6 @@ export default function ExercisesDetails({ exercises }) {
 
   const exerciseName = exercise;
   console.log(exerciseName);
-
-  console.log("KURCINAAAAAAA");
-
   const buttomSheetModalRef = useRef(null);
 
   const handlerOnPress = () => {

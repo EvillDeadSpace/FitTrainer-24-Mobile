@@ -22,12 +22,16 @@ import { ScrollView } from "react-native-virtualized-view";
 import BigList from "react-native-big-list";
 
 
+//.env
+import { FIND_COACH_USERNAME } from "@env";
+
+
 const ListCoach = () => {
   useEffect(() => {
     const fetchCoach = async () => {
       try {
         const response = await fetch(
-          "https://fittrainer-24host.netlify.app/.netlify/functions/server/coaches"
+          FIND_COACH_USERNAME
         );
         const data = await response.json();
         const premiumCoaches = data.filter((coach) => coach.premium);

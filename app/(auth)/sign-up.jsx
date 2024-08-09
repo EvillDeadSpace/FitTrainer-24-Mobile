@@ -21,6 +21,10 @@ import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { Picker } from "@react-native-picker/picker";
 
+
+//.env
+import { REGISTER_URL } from "@env";
+
 const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -29,11 +33,13 @@ const SignUp = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedRole, setSelectedRole] = useState("user");
 
+
+
   const handleSignUp = async () => {
     try {
       console.log(selectedRole);
       const response = await fetch(
-        "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/register",
+        REGISTER_URL,
         {
           method: "POST",
           headers: {

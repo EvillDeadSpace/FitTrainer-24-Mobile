@@ -14,6 +14,10 @@ import { router, Link } from "expo-router";
 
 import { Button } from "tamagui";
 
+
+//import env
+import { FIND_COACH_USERNAME,BUY_PREMIUM } from "@env";
+
 const profile = () => {
   const { username } = useContext(UserContext);
 
@@ -33,7 +37,7 @@ const profile = () => {
     try {
       // Pozivamo API endpoint za dobijanje podataka o trenerima
       const response = await fetch(
-        "https://fittrainer-24host.netlify.app/.netlify/functions/server/coaches"
+        FIND_COACH_USERNAME
       );
       const data = await response.json();
 
@@ -50,7 +54,7 @@ const profile = () => {
   const buyPremium = async (username) => {
     try {
       const response = await fetch(
-        "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/premium",
+        BUY_PREMIUM,
         {
           method: "POST",
           headers: {

@@ -21,8 +21,14 @@ import LottieView from 'lottie-react-native';
 
 import { Button } from "tamagui";
 
+//use context
 import { useContext } from "react";
 import { UserContext } from "../../components/Context/Context";
+
+
+
+//.env
+import { USER_URL, BUY_COACH_URL } from "@env";
 
 const Coach = () => {
   const [finalUserData, setFinalUserData] = useState({});
@@ -38,11 +44,13 @@ const Coach = () => {
   //fetch user data
   const { username } = useContext(UserContext);
 
+  
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/username/${coachName}`
+          `${USER_URL}${coachName}`
         );
         const user = await response.json();
 
@@ -60,7 +68,6 @@ const Coach = () => {
   }, []);
 
   const handlerOrder = async () => {
-    const url = "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/buycoach";
     const payload = {
         username: username,
         coachName: coachName,
@@ -72,7 +79,7 @@ const Coach = () => {
     }
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch(BUY_COACH_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -88,6 +95,7 @@ const Coach = () => {
 
         const data = await response.json();
         console.log("Success:", data.message);
+        Alert.alert("Success", data.message);
         return data;
     } catch (error) {
         console.error("Error fetching orders:", error);

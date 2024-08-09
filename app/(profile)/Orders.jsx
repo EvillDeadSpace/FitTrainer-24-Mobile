@@ -7,6 +7,9 @@ import { useContext } from "react";
 import { UserContext } from "../../components/Context/Context";
 
 
+//env
+import {USER_ORDER_URL} from "@env";
+
 const Orders = () => {
 
   const { username } = useContext(UserContext);
@@ -15,7 +18,7 @@ const Orders = () => {
   const [status, setStatus] = useState([]);
 
   const fetchOrders = async (username) => {
-    const url = `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/orders/${username}`;
+    const url = `${USER_ORDER_URL}${username}`;
 
     try {
         const response = await fetch(url, {

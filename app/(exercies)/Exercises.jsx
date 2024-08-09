@@ -5,21 +5,31 @@ import {
   FlatList,
   Pressable,
   StyleSheet,
-  
-  
 } from "react-native";
 import React, { useState, useReducer, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { fetchData, exerciseOptions } from "../../constants/API/GetData";
-import { useRouter, useLocalSearchParams, router, usePathname, Link } from "expo-router";
+import {
+  useRouter,
+  useLocalSearchParams,
+  router,
+  usePathname,
+  Link,
+} from "expo-router";
 import { Image } from "expo-image";
 import { ScrollView } from "react-native-virtualized-view";
-import exerciseImages  from "../../constants/photo";
-import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet"
+import exerciseImages from "../../constants/photo";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
 import ExercisesDetails from "./ExercisesDetails";
 
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+
+// .env
+import { EXERCISES_URL_TARGET, EXERCISES_URL_BODYPART } from "@env";
 
 const Exercises = (props) => {
   const router = useRouter();
@@ -27,12 +37,9 @@ const Exercises = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [exercises, setExercises] = useState([]);
-  const [tuba, setTuba ] = useState([]);
+  const [tuba, setTuba] = useState([]);
   const exercise = useLocalSearchParams();
   const exerciseName = exercise.text;
-
-
-
 
   console.log(exerciseName);
 
@@ -47,7 +54,7 @@ const Exercises = (props) => {
       ) {
         console.log("Tražim vježbu:", exerciseName);
         // Fetch podataka s API-ja prema imenu vježbe
-        const url = `https://exercisedb.p.rapidapi.com/exercises/target/${exerciseName}`;
+        const url = `${EXERCISES_URL_TARGET}${exerciseName}`;
         const data = await fetchData(url, exerciseOptions);
         console.log(data);
 
@@ -70,7 +77,7 @@ const Exercises = (props) => {
       } else {
         console.log("Tražim vježbu:", exerciseName);
         // Fetch podataka s API-ja prema imenu vježbe
-        const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${exerciseName}`;
+        const url = `${EXERCISES_URL_BODYPART}${exerciseName}`;
         const data = await fetchData(url, exerciseOptions);
         console.log(data);
 
@@ -110,131 +117,117 @@ const Exercises = (props) => {
     );
   };
 
-
   const buttomSheetModalRef = useRef(null);
 
   const handlerOnPress = (exercises) => {
     setTuba(exercises);
     buttomSheetModalRef.current?.present();
-    
-   
-  }
+  };
   const snapPoints = ["50%"];
 
-
- 
   return (
     <BottomSheetModalProvider>
-    <SafeAreaView>
-      <ScrollView>
-      <TouchableOpacity onPress={() => router.back()}>
-      <View style={{margin:20}}>
-      <View style={{flexDirection:"row", alignItems:"center"}}>
-        <Icon name="left" size={25} color="black" />
-        <Text style={styles.text}>Back</Text>
-      </View>
-    </View>
+      <SafeAreaView>
+        <ScrollView>
+          <TouchableOpacity onPress={() => router.back()}>
+            <View style={{ margin: 20 }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name="left" size={25} color="black" />
+                <Text style={styles.text}>Back</Text>
+              </View>
+            </View>
           </TouchableOpacity>
-        <BottomSheetModal
-          ref={buttomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
+          <BottomSheetModal
+            ref={buttomSheetModalRef}
+            index={0}
+            snapPoints={snapPoints}
           >
-        <View  style={{  justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.text}> {tuba.name}</Text>
-          <Text>Equipment: 
-            {tuba.equipment}
-          </Text>
-          <Text style={{
-            fontSize: 12,
-            fontWeight: "light",
-            marginTop: 10,
-            textAlign: "center",
-            color: "#333",
-          
-          }}> 
-            Instruction: 
-              {tuba.instructions}
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={styles.text}> {tuba.name}</Text>
+              <Text>
+                Equipment:
+                {tuba.equipment}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "light",
+                  marginTop: 10,
+                  textAlign: "center",
+                  color: "#333",
+                }}
+              >
+                Instruction:
+                {tuba.instructions}
               </Text>
               <Image
                 source={{ uri: tuba.gifUrl }}
-                style={{ width: 200, height: 200, resizeMode: 'contain' }}
-            />
+                style={{ width: 200, height: 200, resizeMode: "contain" }}
+              />
             </View>
-       
-
-        </BottomSheetModal>
-        {isLoading ? (
-               <View style={styles.animationContainer}>
-               <LottieView
-               autoPlay
-             
-               style={{
-                 width: 450,
-                 height: 450,
-               }}
-               // Find more Lottie files at https://lottiefiles.com/featured
-               source={require('../../constants/Lottie/CatAnimationv2.json')}
-             />
-             <Text>Loading...</Text>
-               </View>
-            ) :( <FlatList
+          </BottomSheetModal>
+          {isLoading ? (
+            <View style={styles.animationContainer}>
+              <LottieView
+                autoPlay
+                style={{
+                  width: 450,
+                  height: 450,
+                }}
+                // Find more Lottie files at https://lottiefiles.com/featured
+                source={require("../../constants/Lottie/CatAnimationv2.json")}
+              />
+              <Text>Loading...</Text>
+            </View>
+          ) : (
+            <FlatList
               data={exercises}
               numColumns={2}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 60, paddingTop: 20 }}
               columnWrapperStyle={{ justifyContent: "space-between" }}
               renderItem={({ item: exercise }) => (
-                <TouchableOpacity style={styles.container} onLongPress={(exercises) => handlerOnPress(exercise)}>
-               
-                    <Image 
-                      source={{ uri: exercise.gifUrl }} 
-                      style={styles.image}
-                      resizeMode="cover" 
-                    />
-                
+                <TouchableOpacity
+                  style={styles.container}
+                  onLongPress={(exercises) => handlerOnPress(exercise)}
+                >
+                  <Image
+                    source={{ uri: exercise.gifUrl }}
+                    style={styles.image}
+                    resizeMode="cover"
+                  />
+
                   <Text style={styles.title}>{exercise.name}</Text>
-           
                 </TouchableOpacity>
               )}
               keyExtractor={(item, index) => index.toString()}
-            />)}
-       
-      </ScrollView>
-     
-    </SafeAreaView>
+            />
+          )}
+        </ScrollView>
+      </SafeAreaView>
     </BottomSheetModalProvider>
   );
 };
 
-
-
-
-
-
 const ExerciseCard = ({ exercise, item, router }) => {
-
   const handlerOnPress = () => {
-
     router.push({ pathname: "/ExercisesDetails", params: exercise });
-  }
-
+  };
 
   return (
-    <TouchableOpacity onPress={()=> handlerOnPress()}>
-    <View style={{ flexDirection: 'row', paddingVertical: 2, marginTop: 2 }}>
-     <Image   
-        source={{ uri: exercise.gifUrl }} 
-        style={styles.image}
-        contentFit="" />
+    <TouchableOpacity onPress={() => handlerOnPress()}>
+      <View style={{ flexDirection: "row", paddingVertical: 2, marginTop: 2 }}>
+        <Image
+          source={{ uri: exercise.gifUrl }}
+          style={styles.image}
+          contentFit=""
+        />
 
-      <Text style={styles.title}>{exercise.name}</Text>
-    </View>
+        <Text style={styles.title}>{exercise.name}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   text: {
@@ -255,7 +248,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   container: {
-    flex: 1, 
+    flex: 1,
     paddingVertical: 2,
     alignItems: "center",
     justifyContent: "center",
@@ -270,10 +263,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16, // Povećavamo veličinu fonta na 24 piksela za veći naslov
     fontWeight: "bold", // Debljina fonta je podebljana
-    marginTop:10, // Povećavamo razmak ispod naslova na 20 piksela
+    marginTop: 10, // Povećavamo razmak ispod naslova na 20 piksela
     textAlign: "center", // Centriramo tekst
     color: "#333", // Dodajemo boju tekstu, na primjer tamnosiva (#333)
-},
+  },
   image: {
     width: 100,
     height: 100,
@@ -286,8 +279,8 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   animationContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
   },
 });

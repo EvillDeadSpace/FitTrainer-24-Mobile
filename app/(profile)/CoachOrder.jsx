@@ -13,6 +13,13 @@ import { Directions, Swipeable } from "react-native-gesture-handler";
 //Icon 
 import AntDesign from '@expo/vector-icons/AntDesign';
 
+
+
+//.env
+import {COACH_FETCH_URL, UPDATE_ORDER_STATUS} from "@env";
+
+
+
 const CoachOrder = () => {
   const { username } = useContext(UserContext);
 
@@ -20,10 +27,8 @@ const CoachOrder = () => {
   const [user, setUser] = useState('');
 
 
- 
-
   const fetchOrders = async (coachName) => {
-    const url = `https://fittrainer-24host.netlify.app/.netlify/functions/server/api/coach/${coachName}`;
+    const url = `${COACH_FETCH_URL}${coachName}`;
 
     try {
       const response = await fetch(url, {
@@ -70,7 +75,7 @@ const CoachOrder = () => {
   const updateOrderStatus = async (username, trainer) => {
     try {
       const response = await fetch(
-        "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/updateOrderStatus",
+        UPDATE_ORDER_STATUS,
         {
           method: "POST",
           headers: {
@@ -169,8 +174,8 @@ const CoachOrder = () => {
               renderRightActions={RightSwipeAction}
               onSwipeableOpen={(direction) => {
                 if (direction === "right") {
-                    updateOrderStatus(user, username);
-                    console.log(username, user);
+                    updateOrderStatus(order.user, username);
+                    console.log(order, user);
                 } else if (direction === "left") {
                   console.log("Decline");
                 }

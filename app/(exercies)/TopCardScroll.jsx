@@ -31,63 +31,6 @@ const TopCardScroll = () => {
 
     const router = useRouter();
     
-
-    const onClick = async (exerciseName)  => {
-        try {
-            if (exerciseName === 'biceps' || exerciseName === 'triceps' || exerciseName === 'quads' || exerciseName === 'abs' || exerciseName === 'glutes') {
-                console.log('Tražim vježbu:', exerciseName);
-                // Fetch podataka s API-ja prema imenu vježbe
-                const url = `https://exercisedb.p.rapidapi.com/exercises/target/${exerciseName}`;
-                const data = await fetchData(url, exerciseOptions);
-            
-                
-                if (data && data.length > 0) {
-                    // Prikupljanje svih informacija o vježbama
-                    const allExercises = data.map(exercise => ({
-                        name: exercise.name,
-                        gifUrl: exercise.gifUrl,
-                        equipment: exercise.equipment,
-                        instructions: exercise.instructions,
-                        mainName: exerciseName,
-                    }));
-                   
-                    router.push({pathname:'/Exercises', params: allExercises })
-                    setForExercises(allExercises);
-                } else {
-                    console.warn('Nema podataka o vježbi.');
-
-                }
-
-            } else {
-                console.log('Tražim vježbu:', exerciseName);
-                // Fetch podataka s API-ja prema imenu vježbe
-                const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${exerciseName}`;
-                const data = await fetchData(url, exerciseOptions);
-               
-
-                if (data && data.length > 0) {
-                    // Prikupljanje svih informacija o vježbama
-                    const allExercises = data.map(exercise => ({
-                        name: exercise.name,
-                        gifUrl: exercise.gifUrl,
-                        equipment: exercise.equipment,
-                        instructions: exercise.instructions,
-                        mainName: exerciseName,
-                    }));
-                    // Prikazivanje informacija na ekranu ExercisePanel
-                    router.push({pathname: '/Exercises', params: exerciseName})
-                    setForExercises(allExercises);
-                
-                } else {
-                    console.warn('Nema podataka o vježbi.');
-                }
-            }
-        } catch (error) {
-            console.error('Greška prilikom dohvaćanja podataka:', error);
-        }
-    };
-
-
     const { username } = useContext(UserContext);
 
   return (

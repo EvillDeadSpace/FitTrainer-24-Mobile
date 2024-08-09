@@ -7,6 +7,8 @@ import { Button, TextArea, Input } from 'tamagui';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
+//import env
+import {COACH_URL_SETTINGS} from "@env";
 
 const CoachSettings = () => {
 
@@ -21,7 +23,7 @@ const CoachSettings = () => {
 
   const handleChanges = async () => {
     try {
-      const response = await fetch('https://fittrainer-24host.netlify.app/.netlify/functions/server/api/choachsettings', {
+      const response = await fetch(COACH_URL_SETTINGS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

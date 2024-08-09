@@ -1,8 +1,11 @@
+//env file
+import {X_RAPID_API_KEY} from "@env";
+
 export const exerciseOptions = {
     method: 'GET',
     params: {limit: '10'},
     headers: {
-        'X-RapidAPI-Key': '4d93af0c42msh89b531ee480f761p1b0f0ajsn133f7bc73851',
+        'X-RapidAPI-Key': X_RAPID_API_KEY,
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
     }
 };
