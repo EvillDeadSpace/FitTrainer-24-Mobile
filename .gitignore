@@ -69,8 +69,8 @@ web-build/
 #.env
 .env*.local
 
-#za backend server
-functions/*
+#local functions folder
+.functions/functions.js
 
-#Test env fajlovaa
+#env test
 .env
