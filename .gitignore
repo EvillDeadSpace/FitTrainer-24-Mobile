@@ -74,3 +74,4 @@ web-build/
 
 #env test
 .env
+*.env
