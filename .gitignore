@@ -71,3 +71,6 @@ web-build/
 
 #za backend server
 functions/*
+
+#Test env fajlovaa
+.env
