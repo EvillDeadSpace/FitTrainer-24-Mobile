@@ -16,6 +16,7 @@ const Orders = () => {
 
   const [trainers, setTrainers] = useState([]);
   const [status, setStatus] = useState([]);
+  const [orderPendingStatus, setOrderPendingStatus] = useState([]);
 
   const fetchOrders = async (username) => {
     const url = `${USER_ORDER_URL}${username}`;
@@ -38,8 +39,10 @@ const Orders = () => {
         // Extract trainers and status from the data object
         const trainers = data.trainers;
         const status = data.status;
+        const orderPendingStatus = data.orderPendingStatus;
         setTrainers(trainers);
         setStatus(status);
+        setOrderPendingStatus(orderPendingStatus);
     } catch (error) {
         console.error('Error fetching orders:', error);
     }
@@ -55,7 +58,7 @@ useEffect(() => {
           <Text>Orders</Text>
             {trainers && trainers.length > 0 ? (
                 trainers.map((trainer, index) => (
-                    <Text key={index}>{`Trainer: ${trainer}, Status: ${status[index]}`}</Text>
+                    <Text key={index}>{`Trainer: ${trainer}, Status: ${status[index]}  OrderPandingstatus:${orderPendingStatus}`}</Text>
                 ))
             ) : (
                 <Text>No orders found</Text>

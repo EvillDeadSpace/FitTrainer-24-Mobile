@@ -72,7 +72,7 @@ const SignIn = () => {
 
 
   return (
-    <SafeAreaView style={{ minHeight: '85%', padding: 16, marginTop: 24, alignItems: 'center', justifyContent: 'center' }}>
+    <SafeAreaView style={{ minHeight: '85%', padding: 16, marginTop: 24, alignItems: 'center', justifyContent: 'center', flex:1 }}>
       
         <Animated.Image entering={BounceIn} source={photo.photoLogin} style={{ width: 300, height: 320, borderRadius: 50 }} />
        

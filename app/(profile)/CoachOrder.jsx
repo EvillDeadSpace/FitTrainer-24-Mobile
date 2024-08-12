@@ -17,6 +17,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 //.env
 import {COACH_FETCH_URL, UPDATE_ORDER_STATUS} from "@env";
+import { ScrollView } from "react-native-virtualized-view";
 
 
 
@@ -99,6 +100,34 @@ const CoachOrder = () => {
     }
   };
 
+ 
+  const removeOrder = async (username, trainer, action ) => {
+    try {
+      const response = await fetch(
+        process.env.REMOVE_ORDER_COACH,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, trainer, action }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Order status updated successfully", data);
+        // Ovdje možete ažurirati stanje ili prikazati poruku korisniku
+        Alert.alert("Order status updated successfully");
+      } else {
+        console.error("Error updating order status:", data.message);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
 
   const RightSwipeAction = () => {
     return(
@@ -158,6 +187,8 @@ const CoachOrder = () => {
 
   return (
     <SafeAreaView>
+      <ScrollView
+      >
       <Text style={{
             fontSize: 26,
             margin:20,
@@ -177,7 +208,8 @@ const CoachOrder = () => {
                     updateOrderStatus(order.user, username);
                     console.log(order, user);
                 } else if (direction === "left") {
-                  console.log("Decline");
+                  removeOrder(order.user, username, "decline");
+                  console.log(order, user + " removed");
                 }
               }}
             >
@@ -195,6 +227,7 @@ const CoachOrder = () => {
       ) : (
         <Text>No orders found</Text>
       )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

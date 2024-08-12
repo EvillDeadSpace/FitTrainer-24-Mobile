@@ -45,7 +45,9 @@ function App() {
   return (
     <GestureHandlerRootView>
          <TamaguiProvider config={config}>
-   <SafeAreaView>
+   <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }
+      
+   }>
             <ScrollView>
                 <Animated.View entering={LightSpeedInLeft} style={{
                     width: '100%',
@@ -55,7 +57,7 @@ function App() {
                     padding: 4,
                     marginVertical: 24,
                 }}>
-                    <Image source={images.photoLogo} style={{ width: 300, height: 320, borderRadius: 12 }} />
+                    <Image source={images.logoTest} style={{ width: 300, height: 320, borderRadius: 12 }} />
                     <Text style={{ fontSize: 24, color: 'black', fontWeight: '600', marginTop: 20 }}>
                         Welcome to FitTreiner-24
                     </Text>

@@ -19,6 +19,7 @@ import photoHighIntensity from '../constants/photo/photoHighIntensity.png';
 import photoLogo from '../constants/photo/photoLogo.png';
 import photoInsanity from '../constants/photo/photoInsanity.png';
 import photoLogin from '../constants/photo/photoLogin.png';
+import logoTest from '../constants/photo/remuve-this-what-i-selected.png'
 
 
 export default {
@@ -42,7 +43,8 @@ export default {
     photoHighIntensity,
     photoLogo,
     photoInsanity,
-    photoLogin
+    photoLogin,
+    logoTest
 };
 
 
