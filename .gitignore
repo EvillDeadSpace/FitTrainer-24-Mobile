@@ -79,3 +79,5 @@ server.js
 #env test
 .env
 *.env
+
+.gitignore
