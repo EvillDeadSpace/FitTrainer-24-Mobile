@@ -14,16 +14,13 @@ import { UserContext } from '../../components/Context/Context';
 
 import { Button } from 'tamagui';
 
-
+//ANIMATION
 import { BounceIn} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
 
-
 //.env
 import { LOGIN_URL } from '@env';
-
-
 
 const SignIn = () => {
 

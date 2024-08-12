@@ -72,6 +72,10 @@ web-build/
 #local functions folder
 .functions/functions.js
 
+#function build folder
+functions/
+server.js
+
 #env test
 .env
 *.env
