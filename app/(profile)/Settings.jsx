@@ -9,10 +9,11 @@ import { UserContext } from "../../components/Context/Context";
 
 import { Button, Input, TextArea } from "tamagui";
 
-//import env
-import {USER_UPDATE_SETTINGS} from "@env";
+
 
 const Settings = () => {
+
+  const USER_UPDATE_SETTINGS = process.env.USER_UPDATE_SETTINGS;
 
   const { username } = useContext(UserContext);
 

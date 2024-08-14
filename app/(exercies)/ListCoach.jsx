@@ -22,11 +22,11 @@ import { ScrollView } from "react-native-virtualized-view";
 import BigList from "react-native-big-list";
 
 
-//.env
-import { FIND_COACH_USERNAME } from "@env";
-
 
 const ListCoach = () => {
+
+  const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
+
   useEffect(() => {
     const fetchCoach = async () => {
       try {

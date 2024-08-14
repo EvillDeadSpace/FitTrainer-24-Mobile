@@ -27,8 +27,6 @@ import { UserContext } from "../../components/Context/Context";
 
 
 
-//.env
-import { USER_URL, BUY_COACH_URL } from "@env";
 
 const Coach = () => {
   const [finalUserData, setFinalUserData] = useState({});
@@ -44,7 +42,9 @@ const Coach = () => {
   //fetch user data
   const { username } = useContext(UserContext);
 
-  
+  //const env
+  const USER_URL = process.env.USER_URL;
+  const BUY_COACH_URL = process.env.BUY_COACH_URL;
 
   useEffect(() => {
     const fetchUserData = async () => {

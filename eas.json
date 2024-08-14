@@ -2,20 +2,26 @@
   "build": {
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "env": {
+          "COACH_FETCH_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/coach/",
+          "LOGIN_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/login",
+          "REGISTER_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/register",
+          "USER_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/username/",
+          "BUY_COACH_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/buycoach",
+          "EXERCISES_URL_TARGET": "https://exercisedb.p.rapidapi.com/exercises/target/",
+          "EXERCISES_URL_BODYPART": "https://exercisedb.p.rapidapi.com/exercises/bodyPart/",
+          "FIND_COACH_USERNAME": "https://fittrainer-24host.netlify.app/.netlify/functions/server/coaches",
+          "UPDATE_ORDER_STATUS": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/updateOrderStatus",
+          "COACH_URL_SETTINGS": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/choachsettings",
+          "USER_ORDER_URL": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/orders/",
+          "USER_UPDATE_SETTINGS": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/update",
+          "BUY_PREMIUM": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/premium",
+          "REMOVE_ORDER_COACH": "https://fittrainer-24host.netlify.app/.netlify/functions/server/api/removeOrder",
+          "X_RAPID_API_KEY": "4d93af0c42msh89b531ee480f761p1b0f0ajsn133f7bc73851",
+          "X_RAPID_HOST": "tuba"
+        }
       }
-    },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
-    "preview4": {
-      "distribution": "internal"
-    },
-    "production": {}
+    }
   }
 }

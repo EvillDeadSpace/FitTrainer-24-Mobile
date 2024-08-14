@@ -32,10 +32,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 
 
-//env
-import { FIND_COACH_USERNAME } from "@env";
-
 const home = () => {
+
+  const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
+
   const drawer = useRef(null);
 
   const { username } = useContext(UserContext);

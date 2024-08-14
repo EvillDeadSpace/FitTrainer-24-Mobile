@@ -8,9 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 //import env
-import {COACH_URL_SETTINGS} from "@env";
 
 const CoachSettings = () => {
+
+  const COACH_URL_SETTINGS = process.env.COACH_URL_SETTINGS;
 
   const { username } = useContext(UserContext);
 

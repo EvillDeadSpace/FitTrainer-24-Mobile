@@ -23,7 +23,7 @@ import { Picker } from "@react-native-picker/picker";
 
 
 //.env
-import { REGISTER_URL } from "@env";
+
 
 const SignUp = () => {
   const [password, setPassword] = useState("");
@@ -36,6 +36,8 @@ const SignUp = () => {
 
 
   const handleSignUp = async () => {
+
+    const REGISTER_URL = process.env.REGISTER_URL;
     try {
       console.log(selectedRole);
       const response = await fetch(

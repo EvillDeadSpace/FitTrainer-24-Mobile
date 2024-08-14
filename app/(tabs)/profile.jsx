@@ -15,10 +15,12 @@ import { router, Link } from "expo-router";
 import { Button } from "tamagui";
 
 
-//import env
-import { FIND_COACH_USERNAME,BUY_PREMIUM } from "@env";
 
 const profile = () => {
+
+  const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
+  const BUY_PREMIUM = process.env.BUY_PREMIUM;
+
   const { username } = useContext(UserContext);
 
   const [isCoach, setIsCoach] = useState(false);

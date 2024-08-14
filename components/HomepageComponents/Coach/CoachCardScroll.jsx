@@ -11,12 +11,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Arrow from "react-native-vector-icons/Entypo";
 import { Link, router } from "expo-router";
 
-//import env
-import { FIND_COACH_USERNAME } from "@env";
 
 const CoachCardScroll = () => {
   const [coaches, setCoaches] = useState([]);
 
+  const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
+  
   useEffect(() => {
     const fetchCoaches = async () => {
       try {

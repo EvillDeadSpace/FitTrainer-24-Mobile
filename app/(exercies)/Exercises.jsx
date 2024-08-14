@@ -28,8 +28,6 @@ import ExercisesDetails from "./ExercisesDetails";
 import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 
-// .env
-import { EXERCISES_URL_TARGET, EXERCISES_URL_BODYPART } from "@env";
 
 const Exercises = (props) => {
   const router = useRouter();
@@ -41,7 +39,8 @@ const Exercises = (props) => {
   const exercise = useLocalSearchParams();
   const exerciseName = exercise.text;
 
-  console.log(exerciseName);
+  const EXERCISES_URL_TARGET = process.env.EXERCISES_URL_TARGET;
+  const EXERCISES_URL_BODYPART = process.env.EXERCISES_URL_BODYPART;
 
   const handleExercisePress = async (exerciseName) => {
     try {

@@ -81,3 +81,9 @@ server.js
 *.env
 
 .gitignore
+
+#eas to ignore
+eas.json
+eas
+eas-build-cache
+eas-build-cache-*

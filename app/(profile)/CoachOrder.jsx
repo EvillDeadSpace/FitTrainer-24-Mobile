@@ -15,13 +15,17 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 
-//.env
-import {COACH_FETCH_URL, UPDATE_ORDER_STATUS} from "@env";
+
 import { ScrollView } from "react-native-virtualized-view";
 
 
 
 const CoachOrder = () => {
+
+  //env
+  const COACH_FETCH_URL = process.env.COACH_FETCH_URL;
+  const UPDATE_ORDER_STATUS = process.env.UPDATE_ORDER_STATUS;
+
   const { username } = useContext(UserContext);
 
   const [orders, setOrders] = useState([]);

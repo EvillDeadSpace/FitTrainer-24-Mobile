@@ -1,5 +1,6 @@
-//env file
-import {X_RAPID_API_KEY} from "@env";
+
+
+const X_RAPID_API_KEY = process.env.X_RAPID_API_KEY;
 
 export const exerciseOptions = {
     method: 'GET',
