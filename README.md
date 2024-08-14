@@ -1,7 +1,7 @@
 # FitTrainer-24
 
 
-FitTrainer is a comprehensive platform designed to connect trainers and users, enhancing the fitness experience for both parties. The application offers a range of features, including:
+FitTrainer is a comprehensive platform designed to connect trainers and users, enhancing the fitness experience for both parties. 
 
 
 
@@ -40,6 +40,9 @@ Please be aware that user data security is a priority for us. However, to ensure
 
 - FitTrainer aims to streamline the fitness journey, making it easier for users to find and connect with the right trainers and resources to achieve their fitness goals.
 
+
+## 🤓 Design:
+https://www.figma.com/design/6ZEBd5zASKGy7GVzj17MHv/FitTreiner-24?node-id=0-1
 
 
 <br>
