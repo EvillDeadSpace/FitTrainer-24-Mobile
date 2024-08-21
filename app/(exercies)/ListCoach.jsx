@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     marginRight: 20,
+    marginLeft: 20,
     marginBottom: 20,
     marginTop: 20,
     margin: 25,
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+  
     // Changed flexDirection to column
   },
   row: {
@@ -199,6 +201,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginRight: 20,
     marginBottom: 20,
+    marginLeft: 20,
     marginTop: 20,
     margin: 25,
     //golder border

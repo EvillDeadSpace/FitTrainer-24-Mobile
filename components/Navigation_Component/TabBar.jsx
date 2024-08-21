@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import iconSet from '@expo/vector-icons/build/Fontisto';
 import shop from '../../app/(tabs)/shop';
 
@@ -12,7 +13,9 @@ const TabBar = ({ state, descriptors, navigation}) => {
         home: (props)=> <AntDesign name='home' size={26} color={secondaryColor} {...props}/>,
         map: (props)=> <Feather name='map' size={26} color={secondaryColor} {...props}/>,
         profile: (props)=> <AntDesign name='profile' size={26} color={secondaryColor} {...props}/>,
+        chat: (props)=> <Ionicons name='chatbox-outline' size={26} color={secondaryColor} {...props}/>,
         shop: (props)=> <AntDesign name='shoppingcart' size={26} color={secondaryColor} {...props}/>,
+       
     }
 
     const primaryColor = '#673ab7'

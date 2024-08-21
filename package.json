@@ -4,6 +4,7 @@
     "@eva-design/eva": "^2.2.0",
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^4.6.3",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-picker/picker": "2.7.5",
     "@react-navigation/drawer": "^6.6.15",
     "@tamagui/avatar": "^1.101.0",
@@ -41,6 +42,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-big-list": "^1.6.1",
+    "react-native-calendars": "^1.1306.0",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-maps": "1.14.0",
@@ -52,7 +54,8 @@
     "react-native-web": "~0.19.6",
     "serverless-http": "^3.2.0",
     "tamagui": "^1.101.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
@@ -67,5 +70,9 @@
   },
   "version": "1.0.0",
   "private": true,
-  "name": "fittrainer-"
+  "name": "fittrainer-",
+  "description": "<p>\r   <!-- iOS -->\r   <a href=\"https://itunes.apple.com/app/apple-store/id982107779\">\r     <img alt=\"Supports Expo iOS\" longdesc=\"Supports Expo iOS\" src=\"https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff\" />\r   </a>\r   <!-- Android -->\r   <a href=\"https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample\">\r     <img alt=\"Supports Expo Android\" longdesc=\"Supports Expo Android\" src=\"https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff\" />\r   </a>\r   <!-- Web -->\r   <a href=\"https://docs.expo.dev/workflow/web/\">\r     <img alt=\"Supports Expo Web\" longdesc=\"Supports Expo Web\" src=\"https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff\" />\r   </a>\r </p>",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

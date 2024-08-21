@@ -31,9 +31,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 
-
 const home = () => {
-
   const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
 
   const drawer = useRef(null);
@@ -59,9 +57,7 @@ const home = () => {
   const checkIfCoach = async () => {
     try {
       // Pozivamo API endpoint za dobijanje podataka o trenerima
-      const response = await fetch(
-        FIND_COACH_USERNAME
-      );
+      const response = await fetch(FIND_COACH_USERNAME);
       const data = await response.json();
 
       // Proveravamo da li trenutni korisnik postoji u listi trenera
@@ -94,37 +90,32 @@ const home = () => {
         <Text style={styles.avatarName}>{username}</Text>
       </View>
       <View style={styles.menuItem}>
-        <View style={styles.menuItemContent}>
-          <Link href="profile">
-            <Icon name="user" size={20} style={styles.icon} />
-            <Text style={styles.text}>View profile</Text>
-          </Link>
-          <Link href="Settings">
-            <MaterialCommunityIcons
-              name="progress-check"
-              size={24}
-              color="black"
-              style={styles.icon}
-            />
-            <Text style={styles.text}>Progress</Text>
-          </Link>
-
-          {IsCoach ? (
-            <>
-              <Link href="CoachOrder">
-                <Feather size={20} style={styles.icon} name="check-square" />
-                <Text style={styles.text}>Your Customers</Text>
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link href="Orders">
-                <Feather size={20} style={styles.icon} name="check-square" />
-                <Text style={styles.text}>Purchased Coaches</Text>
-              </Link>
-            </>
-          )}
-        </View>
+      <View style={styles.menuItemContent}>
+  <Link href="profile" style={styles.menuItemLink}>
+    <Icon name="user" size={20} style={styles.icon} />
+    <Text style={styles.text}>View profile</Text>
+  </Link>
+  <Link href="Progress" style={styles.menuItemLink}>
+    <MaterialCommunityIcons
+      name="progress-check"
+      size={24}
+      color="black"
+      style={styles.icon}
+    />
+    <Text style={styles.text}>Progress</Text>
+  </Link>
+  {IsCoach ? (
+    <Link href="CoachOrder" style={styles.menuItemLink}>
+      <Feather size={20} style={styles.icon} name="check-square" />
+      <Text style={styles.text}>Your Customers</Text>
+    </Link>
+  ) : (
+    <Link href="Orders" style={styles.menuItemLink}>
+      <Feather size={20} style={styles.icon} name="check-square" />
+      <Text style={styles.text}>Purchased Coaches</Text>
+    </Link>
+  )}
+</View>
       </View>
     </View>
   );
@@ -201,9 +192,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#FFFFFF",
-    margin: 24,
     fontSize: 16,
-    fontWeight: "medium",
+    fontWeight: "500",
   },
   horizontalLine: {
     borderBottomColor: "grey",
@@ -249,13 +239,19 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 20,
   },
-  icon: {
-    margin: 15, // Adjust as needed
+ icon: {
+    marginRight: 10, // Razmak između ikone i teksta
     color: "#FFC700",
   },
   menuItemContent: {
+    flexDirection: "column", // Promijenjeno iz "row" u "column" da ikone idu jedna ispod druge
+    alignItems: "center", // Centriranje u koloni
+    width: "100%", // Širina će ostati ista
+  },
+  menuItemLink: {
+    flexDirection: "row", // Svaka ikona i tekst su horizontalno poredani unutar linka
     alignItems: "center",
-    flexDirection: "column",
+    marginBottom: 20, // Dodaj razmak između stavki
   },
 });
 

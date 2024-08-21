@@ -26,6 +26,9 @@ const AuthLayout = () => {
     <Stack.Screen name='ListPlan' options={{
      headerShown:false
       }}  />
+    <Stack.Screen name='Progress' options={{
+     headerShown:false
+      }}  />
    </Stack>
    </GestureHandlerRootView>
 

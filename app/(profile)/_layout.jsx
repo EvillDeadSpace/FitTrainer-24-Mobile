@@ -14,6 +14,9 @@ const ProfileLayout = () => {
     <Stack.Screen name='Settings' options={{headerShown:false}} />
     <Stack.Screen name='Orders' options={{headerShown:false}} />
     <Stack.Screen name='CoachOrder' options={{headerShown:false}} />
+    <Stack.Screen name='Chat' options={{headerShown:false}} />
+    <Stack.Screen name='ChatUser' options={{headerShown:false}} />
+    <Stack.Screen name='UserChat' options={{headerShown:false}} />
    </Stack>
   
   )

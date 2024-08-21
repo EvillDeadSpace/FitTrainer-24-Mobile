@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,8 +23,16 @@ import { Button } from "tamagui";
 
 
 
-const profile = () => {
+//icon
+import Feather from '@expo/vector-icons/Feather';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
+
+
+const profile = () => {
   const FIND_COACH_USERNAME = process.env.FIND_COACH_USERNAME;
   const BUY_PREMIUM = process.env.BUY_PREMIUM;
 
@@ -38,9 +53,7 @@ const profile = () => {
   const checkIfCoach = async () => {
     try {
       // Pozivamo API endpoint za dobijanje podataka o trenerima
-      const response = await fetch(
-        FIND_COACH_USERNAME
-      );
+      const response = await fetch(FIND_COACH_USERNAME);
       const data = await response.json();
 
       // Proveravamo da li trenutni korisnik postoji u listi trenera
@@ -55,16 +68,13 @@ const profile = () => {
 
   const buyPremium = async (username) => {
     try {
-      const response = await fetch(
-        BUY_PREMIUM,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }),
-        }
-      );
+      const response = await fetch(BUY_PREMIUM, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
       if (response.ok) {
         Alert.alert("Success", "You have purchased premium!"); // Refresh the list of coaches
       } else {
@@ -96,34 +106,54 @@ const profile = () => {
         <FontAwesome6 name="user" size={56} color="black" />
       </View>
       <View style={styles.contentContainer}>
-      <Button style={styles.button}
-        onPress={()=> router.navigate("/Settings")}>
-          <Text style={styles.normalText}>Profile Settings</Text>
+        <Button
+          style={styles.button}
+          onPress={() => router.navigate("/Settings")}
+        >
+          <Feather name="settings" size={21} color="white" />
+          <Text style={styles.buttonText}>Profile Settings</Text>
         </Button>
-        <Button style={styles.button}
-         onPress={()=> router.navigate("/Privacy")}>
-          <Text>Privacy</Text>
+        <Button
+          style={styles.button}
+          onPress={() => router.navigate("/Privacy")}
+        >
+          <MaterialIcons name="privacy-tip" size={21} color="white" />
+          <Text style={styles.buttonText}>Privacy</Text>
         </Button>
-       
-        {isCoach && (
+
+        {isCoach ? (
           <>
-            <Button style={styles.button}
-             onPress={()=> router.navigate("/CoachSettings")}>
-              <Text>Edit Coach Profile</Text>
-            </Button>
             <Button
-              onPress={() => buyPremium(username)}
               style={styles.button}
+              onPress={() => router.push("/CoachSettings")}
             >
-              Buy Premium Account
+               <AntDesign name="edit" size={21} color="white" />
+              <Text style={styles.buttonText}>Edit Coach Profile</Text>
+             
+            </Button>
+            <Button style={styles.button} onPress={() => router.push("/Chat")}>
+            <Ionicons name="chatbox-outline" size={24} color="white" />
+              <Text style={styles.buttonText}>Chat</Text>
+            </Button>
+            <Button onPress={() => buyPremium(username)} style={styles.button}>
+            <MaterialIcons name="workspace-premium" size={24} color="white" />
+              <Text style={styles.buttonText}>Buy Premium Account</Text>
             </Button>
           </>
-        )}
+        ) : (
           <Button
+            style={styles.button}
+            onPress={() => router.push("/UserChat")}
+          >
+            <Text style={styles.buttonText}>Chat</Text>
+          </Button>
+        )}
+        <Button
           style={styles.button}
           onPress={() => router.replace("/sign-in")}
         >
-          <Text>Log Out</Text>
+          <SimpleLineIcons name="logout" size={24} color="white" />
+          <Text  style={styles.buttonText}>Log Out</Text>
         </Button>
       </View>
     </SafeAreaView>
@@ -143,6 +173,11 @@ const styles = StyleSheet.create({
   normalText: {
     fontSize: 16,
   },
+  buttonText:{
+    color:"white",
+    fontSize:16,
+    fontWeight:"medium"
+  },
   contentContainer: {
     flexDirection: "column",
     // Razmak između dječjih elemenata
@@ -152,10 +187,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 8,
-    width: "90%",
+    width: "80%",
     alignItems: "center",
     backgroundColor: "#9575cd",
-    padding: 10,
+
     color: "black",
   },
 });

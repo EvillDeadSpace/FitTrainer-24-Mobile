@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import planPhoto from '../../constants/photo/planPhoto.png'
 
-import { Image } from 'tamagui'
+import { Image, ScrollView } from 'tamagui'
 
 import { Link
  } from 'expo-router'
@@ -20,7 +20,11 @@ const onPressShop = (name) => {
 const shop = () => {
   return (
 <>
-<SafeAreaView style={styles.container}>
+
+  <SafeAreaView style={styles.container}>
+    <ScrollView
+    
+    >
       <TouchableOpacity style={{marginTop:45}} onPress={() => onPressShop("ListPlan")}>
         <Image
           source={planPhoto}
@@ -36,15 +40,16 @@ const shop = () => {
         />
       </TouchableOpacity>
       <Text style={styles.text}>Buy a Coach</Text>
+      <Text style={{textAlign:"center",  fontWeight:"bold" , fontSize:24 }}>Stay tuned to get more 🫡🥹 </Text>
+      </ScrollView>
     </SafeAreaView>
-   <Text style={{textAlign:"center",  fontWeight:"bold" , fontSize:24 }}>Stay tuned to get more 🫡🥹 </Text>
-    
       </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     marginTop: 20, 
     justifyContent: 'center', // Vertikalno centriranje
     alignItems: 'center', // Horizontalno centriranje

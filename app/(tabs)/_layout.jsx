@@ -36,6 +36,13 @@ const TabsLayout = () => {
               headerShown: false,
             }}
           />
+           <Tabs.Screen
+            name="chat"
+            options={{
+              title: "Profile",
+              headerShown: false,
+            }}
+          />
           <Tabs.Screen
             name="profile"
             options={{
@@ -43,6 +50,7 @@ const TabsLayout = () => {
               headerShown: false,
             }}
           />
+         
         </Tabs>
       </GestureHandlerRootView>
     </>
