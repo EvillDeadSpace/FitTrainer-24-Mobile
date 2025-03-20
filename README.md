@@ -96,36 +96,6 @@ FitTrainer is a cutting-edge mobile platform that revolutionizes the fitness exp
 - CORS protection
 - Environment variables
 
-## 🎨 App Structure
-
-```text
-FitTrainer-24/
-├── mobile/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── screens/
-│   │   ├── navigation/
-│   │   └── utils/
-│   └── App.js
-├── server/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   └── server.js
-└── README.md
-```
-
-## 📱 Screenshots
-
-```text
-[Add your app screenshots here]
-├── Login Screen
-├── Trainer Dashboard
-├── Booking Interface
-└── Exercise Library
-```
-
 ## 🤝 Contributing
 
 We welcome contributions! Please follow these steps:
@@ -138,9 +108,7 @@ We welcome contributions! Please follow these steps:
 ## 📞 Support
 
 Need help? Contact us:
-- 📧 Email: support@fittrainer.com
-- 💬 Discord: FitTrainer Community
-- 📱 In-app Support
+- 📧 Email: amartubic1@gmail.com
 
 ## 📄 License
 
@@ -149,6 +117,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Made with ❤️ by FitTrainer Team
+
 ## 🤓 Design:
 https://www.figma.com/design/6ZEBd5zASKGy7GVzj17MHv/FitTreiner-24?node-id=0-1
 
