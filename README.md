@@ -1,13 +1,14 @@
 # FitTrainer-24 💪
 
 [![React Native](https://img.shields.io/badge/React_Native-Latest-blue?logo=react)](https://reactnative.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Latest-green?logo=node.js)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?logo=mongodb)](https://www.mongodb.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Expo](https://img.shields.io/badge/Expo-Latest-white?logo=expo)](https://expo.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Latest-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Firebase](https://img.shields.io/badge/Firebase-Latest-orange?logo=firebase)](https://firebase.google.com/)
 
 ## 🎯 Overview
 
-FitTrainer is a cutting-edge mobile platform that revolutionizes the fitness experience by creating seamless connections between trainers and fitness enthusiasts. Built with React Native and Expo, it offers a robust solution for fitness management and personal training services.
+FitTrainer is a cutting-edge mobile platform that revolutionizes the fitness experience by creating seamless connections between trainers and fitness enthusiasts. Built with React Native, Node.js, and MongoDB, it offers a robust solution for fitness management and personal training services.
 
 ## ✨ Key Features
 
@@ -31,63 +32,99 @@ FitTrainer is a cutting-edge mobile platform that revolutionizes the fitness exp
 
 ### Installation Options
 
-1. **Direct Download**
+1. **Mobile App**
    ```bash
    # Download APK
    https://expo.dev/artifacts/eas/qHoSuSQAQqnTmmqx4R6gPT.apk
    ```
 
-2. **Android Emulator**
-   - Launch your Android emulator
-   - Drag & drop the APK file into the emulator
-   - Follow on-screen installation instructions
+2. **Development Setup**
+   ```bash
+   # Clone repository
+   git clone [your-repo-url]
+
+   # Install dependencies
+   cd FitTrainer-24
+   npm install
+
+   # Start server
+   cd server
+   npm run dev
+
+   # Start mobile app
+   cd mobile
+   npm start
+   ```
+
+## 🛠 Tech Stack
+
+### Frontend
+- React Native with Expo
+- JavaScript (ES6+)
+- React Navigation
+- Axios for API calls
+- AsyncStorage for local storage
+
+### Backend
+- Node.js & Express.js
+- MongoDB for database
+- Mongoose ODM
+- JWT for authentication
+- RESTful API architecture
+
+### DevOps & Tools
+- Git for version control
+- npm for package management
+- Postman for API testing
+- ESLint for code quality
 
 ## 💡 Technical Features
 
-- **Real-time Communication**: Built-in messaging system
-- **Secure Payments**: Integrated payment gateway
-- **Location Services**: Advanced gym mapping
-- **User Authentication**: Secure login and registration
-- **Profile Management**: Customizable user/trainer profiles
-- **Exercise Database**: Comprehensive exercise library
-- **Booking System**: Advanced session scheduling
+- **Database Schema**: Optimized MongoDB collections
+- **API Endpoints**: RESTful architecture
+- **Authentication**: JWT-based auth system
+- **Real-time Updates**: WebSocket integration
+- **Data Validation**: Server-side validation
+- **Error Handling**: Global error middleware
 
-## 🔒 Security Notice
+## 🔒 Security Features
 
-We prioritize your data security. For testing purposes:
-- Use test credentials instead of real passwords
-- Avoid sharing personal information
-- Regular security updates are implemented
-- End-to-end encryption for messages
+- JWT authentication
+- Password hashing
+- Input sanitization
+- Rate limiting
+- CORS protection
+- Environment variables
 
-## 🎨 Design Philosophy
+## 🎨 App Structure
 
-Our UI/UX focuses on:
-- Clean, intuitive navigation
-- Modern, minimalist interface
-- Responsive design
-- Accessibility features
-- Consistent branding
-- User-friendly interactions
+```text
+FitTrainer-24/
+├── mobile/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── screens/
+│   │   ├── navigation/
+│   │   └── utils/
+│   └── App.js
+├── server/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── server.js
+└── README.md
+```
 
 ## 📱 Screenshots
 
 ```text
-[Add screenshots here showing key features]
+[Add your app screenshots here]
 ├── Login Screen
 ├── Trainer Dashboard
 ├── Booking Interface
 └── Exercise Library
 ```
-
-## 🛠 Tech Stack
-
-- **Frontend**: React Native, Expo
-- **State Management**: Redux
-- **Authentication**: Firebase Auth
-- **Database**: Firebase Realtime Database
-- **Maps**: Google Maps API
-- **Payments**: Stripe Integration
 
 ## 🤝 Contributing
 
